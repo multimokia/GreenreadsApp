@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		680CBB29299ECCE500CB84EC /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 680CBB28299ECCE500CB84EC /* Supabase */; };
 		681456C52990927300D0ADA0 /* GreenreadsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681456C42990927300D0ADA0 /* GreenreadsApp.swift */; };
 		681456C72990927300D0ADA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681456C62990927300D0ADA0 /* ContentView.swift */; };
 		681456C92990927400D0ADA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 681456C82990927400D0ADA0 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				680CBB29299ECCE500CB84EC /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +171,9 @@
 			dependencies = (
 			);
 			name = Greenreads;
+			packageProductDependencies = (
+				680CBB28299ECCE500CB84EC /* Supabase */,
+			);
 			productName = Greenreads;
 			productReference = 681456C12990927200D0ADA0 /* Greenreads.app */;
 			productType = "com.apple.product-type.application";
@@ -241,6 +246,9 @@
 				Base,
 			);
 			mainGroup = 681456B82990927200D0ADA0;
+			packageReferences = (
+				680CBB27299ECCE500CB84EC /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			productRefGroup = 681456C22990927200D0ADA0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -609,6 +617,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		680CBB27299ECCE500CB84EC /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		680CBB28299ECCE500CB84EC /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 680CBB27299ECCE500CB84EC /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 681456B92990927200D0ADA0 /* Project object */;
 }
