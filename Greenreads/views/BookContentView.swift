@@ -12,8 +12,6 @@ struct BookContentViewInternals: View {
     let bookDescription: String;
     let rating: CGFloat;
 
-    @State private var searchquery: String = "";
-
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -40,23 +38,20 @@ struct BookContentViewInternals: View {
 
             Spacer()
 
-            Group {
-                VStack {
-                    HStack {
-                        Spacer()
+            VStack {
+                HStack {
+                    Spacer()
 
-                        Button(action: {}) {
-                            Text("Add to library");
-                            Image(systemName: "chevron.right");
-                        }
-                            .cornerRadius(20)
-                            .buttonStyle(.borderedProminent)
-                            .tint(Color(red: 0.48, green: 0.51, blue: 0.42))
-                            .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
+                    Button(action: {}) {
+                        Text("Add to library");
+                        Image(systemName: "chevron.right");
                     }
+                        .cornerRadius(20)
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color(red: 0.48, green: 0.51, blue: 0.42))
+                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
                 }
             }
-            
         }
     }
 }
