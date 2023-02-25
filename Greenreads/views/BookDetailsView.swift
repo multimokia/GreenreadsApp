@@ -26,12 +26,10 @@ struct BookDetailsViewInternals: View {
                         .padding(.horizontal, 15);
                 }
 
-
-                // TODO: Fix the padding of this input field and standardize
                 TextField("Search", text: $searchquery)
+                    .foregroundColor(.white)
                     .padding(15)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(.gray))
-                    .foregroundColor(.white);
+                    .background(RoundedRectangle(cornerRadius: 20).fill(.gray));
 
                 Button (action: {}) {
                     Image(systemName: "magnifyingglass")
@@ -83,7 +81,12 @@ struct BookDetailsViewInternals: View {
                             .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
                     }
 
-                    ShelfComponent().frame(alignment: .bottom);
+                    ShelfComponent(bookThumbs: [
+                        "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
+                        "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/02/attachment_80004080-e1488217702832.jpg",
+                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946695868-3T5CPZ9W9WJURE2AGWPI/ZiSS+Front.jpg",
+                        "https://static-cse.canva.com/blob/921497/BlueOrangeandYellowCoolMemoir_InspirationalBookCover.jpg"
+                    ]).frame(alignment: .bottom);
                 }
             }
             
@@ -100,7 +103,7 @@ struct BookDetailsView: View {
     let bookTags: [String];
     let backgroundImageUrl: String;
     let rating: CGFloat;
-    
+
     var body: some View {
         ZStack {
             BookDetailsViewInternals(
@@ -113,6 +116,7 @@ struct BookDetailsView: View {
                     AsyncImage(url: URL(string: backgroundImageUrl))
                         .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
+                        .colorMultiply(Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0.7))
                         .blur(radius: 4)
                 )
         }
