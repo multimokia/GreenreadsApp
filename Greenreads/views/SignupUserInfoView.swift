@@ -2,7 +2,7 @@
 //  SignupUserInfoView.swift
 //  Greenreads
 //
-//  Created by Misty D'mello on 2023-02-05.
+//  Created by Sarah Sami on 2023-02-24.
 //
 
 import SwiftUI
