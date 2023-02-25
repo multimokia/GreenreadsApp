@@ -12,28 +12,33 @@ struct BookDetailsViewInternals: View {
     let bookTitle: String;
     let bookAuthor: String;
     let bookTags: [String];
+    let rating: CGFloat;
 
     @State private var searchquery: String = "";
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "ellipsis")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .light))
-                    .padding(.horizontal, 15);
+                Button (action: {}) {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .light))
+                        .padding(.horizontal, 15);
+                }
+
 
                 // TODO: Fix the padding of this input field and standardize
                 TextField("Search", text: $searchquery)
+                    .padding(15)
                     .background(RoundedRectangle(cornerRadius: 20).fill(.gray))
-                    .foregroundColor(.white)
-                    .padding(.init(top: 20, leading: 0, bottom: 20, trailing: 0))
-                    .frame(height: 40);
+                    .foregroundColor(.white);
 
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .light))
-                    .padding(.horizontal, 15);
+                Button (action: {}) {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .light))
+                        .padding(.horizontal, 15);
+                }
             }
 
             Text(bookTitle)
@@ -52,7 +57,36 @@ struct BookDetailsViewInternals: View {
                 .font(.system(size: 20));
 
             Spacer()
-            // TODO: Shelf component
+
+            Group {
+                VStack {
+                    HStack {
+                        StarRatingComponent(rating: rating, maxRating: 5)
+                            .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 0));
+
+                        Spacer()
+                        Button(action: {}) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                            .frame(width: 35, height: 35)
+                            .foregroundColor(.white)
+                            .background(Color(red: 0.48, green: 0.51, blue: 0.42))
+                            .clipShape(Circle());
+
+                        Button(action: {}) {
+                            Text("Add to library");
+                            Image(systemName: "chevron.right");
+                        }
+                            .cornerRadius(20)
+                            .buttonStyle(.borderedProminent)
+                            .tint(Color(red: 0.48, green: 0.51, blue: 0.42))
+                            .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
+                    }
+
+                    ShelfComponent().frame(alignment: .bottom);
+                }
+            }
+            
         }
     }
 }
@@ -65,18 +99,23 @@ struct BookDetailsView: View {
     let bookAuthor: String;
     let bookTags: [String];
     let backgroundImageUrl: String;
+    let rating: CGFloat;
     
     var body: some View {
-        BookDetailsViewInternals(
-            bookTitle: bookTitle,
-            bookAuthor: bookAuthor,
-            bookTags: bookTags
-        )
-            .background(
-                AsyncImage(url: URL(string: backgroundImageUrl))
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
+        ZStack {
+            BookDetailsViewInternals(
+                bookTitle: bookTitle,
+                bookAuthor: bookAuthor,
+                bookTags: bookTags,
+                rating: rating
             )
+                .background(
+                    AsyncImage(url: URL(string: backgroundImageUrl))
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+                        .blur(radius: 4)
+                )
+        }
     }
 }
 
@@ -86,7 +125,8 @@ struct BookDetailsView_Previews: PreviewProvider {
             bookTitle: "DUNE",
             bookAuthor: "Frank Herbert",
             bookTags: ["Science Fiction", "Fiction", "Fantasy", "Classics", "Science Fiction Fantasy", "Audiobook", "Space Opera", "Novels", "Adventure", "Adult"],
-            backgroundImageUrl: "https://media.discordapp.net/attachments/640994428214837249/1075104620050919444/b.png.png"
-        );
+            backgroundImageUrl: "https://media.discordapp.net/attachments/640994428214837249/1075104620050919444/b.png.png",
+            rating: 4.27
+        ).background(.black);
     }
 }
