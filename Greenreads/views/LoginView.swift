@@ -28,46 +28,19 @@ struct LoginView: View {
                     .fill(Color.white)
                     .frame(width: UIScreen.main.bounds.width / 1.5, height: 1)
                     .padding(.top, 20)
-                
+
                 Spacer()
-                
-                VStack {
-                    TextField("Email", text: $email)
-                        .padding()
-                        .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                        .background(Color(hex: "C4C4C4"))
-                        .cornerRadius(20)
-                        .foregroundColor(Color(hex: "232323"))
-                        .font(.system(size: 20).italic())
-                    
-                    ZStack(alignment: .trailing) {
-                        if isPasswordVisible {
-                            TextField("Password", text: $password)
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                .background(Color(hex: "C4C4C4"))
-                                .cornerRadius(20)
-                                .foregroundColor(Color(hex: "232323"))
-                                .font(.system(size: 20).italic())
-                        } else {
-                            SecureField("Password", text: $password)
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                .background(Color(hex: "C4C4C4"))
-                                .cornerRadius(20)
-                                .foregroundColor(Color(hex: "232323"))
-                                .font(.system(size: 20).italic())
-                        }
-                        Button(action: {
-                            isPasswordVisible.toggle()
-                        }) {
-                            Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                                .foregroundColor(Color(hex: "232323"))
-                        }
-                        .padding(.trailing, 10)
-                    }
-                    .padding(.top, 10)
-                    
+
+                VStack(spacing: 15) {
+                    TextFieldComponent(
+                        placeholderText: "Email",
+                        textContent: $email
+                    );
+
+                    TogglablePasswordFieldComponent(
+                        placeholderText: "Password",
+                        textContent: $password
+                    );
                 }
                 .padding(.top, 30)
                 

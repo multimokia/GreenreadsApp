@@ -12,9 +12,7 @@ struct SignupAccountInfoView: View {
         @State private var username = ""
         @State private var password = ""
         @State private var confirmPassword = ""
-        @State private var isPasswordVisible = false
-        @State private var isConfirmPasswordVisible = false
-        
+
         var body: some View {
             ZStack {
                 Color(hex: "40453D")
@@ -35,86 +33,31 @@ struct SignupAccountInfoView: View {
                     
                     // Spacer()
                     
-                    VStack {
+                    VStack(spacing: 15) {
+                        TextFieldComponent(
+                            placeholderText: "Username",
+                            textContent: $username
+                        );
 
-                        TextField("Username", text: $username)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                            .background(Color(hex: "C4C4C4"))
-                            .cornerRadius(20)
-                            .foregroundColor(Color(hex: "232323"))
-                            .font(.system(size: 20).italic())
-                            .padding(.top, 10)
-                        
-                        TextField("Email", text: $email)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                            .background(Color(hex: "C4C4C4"))
-                            .cornerRadius(20)
-                            .foregroundColor(Color(hex: "232323"))
-                            .font(.system(size: 20).italic())
-                            .padding(.top, 10)
-                        
-                        ZStack(alignment: .trailing) {
-                            if isPasswordVisible {
-                                TextField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                    .background(Color(hex: "C4C4C4"))
-                                    .cornerRadius(20)
-                                    .foregroundColor(Color(hex: "232323"))
-                                    .font(.system(size: 20).italic())
-                            } else {
-                                SecureField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                    .background(Color(hex: "C4C4C4"))
-                                    .cornerRadius(20)
-                                    .foregroundColor(Color(hex: "232323"))
-                                    .font(.system(size: 20).italic())
-                            }
-                            Button(action: {
-                                isPasswordVisible.toggle()
-                            }) {
-                                Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                                    .foregroundColor(Color(hex: "232323"))
-                            }
-                            .padding(.trailing, 10)
-                        }
-                        .padding(.top, 10)
-                        
-                        ZStack(alignment: .trailing) {
-                            if isConfirmPasswordVisible {
-                                TextField("Confirm Password", text: $confirmPassword)
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                    .background(Color(hex: "C4C4C4"))
-                                    .cornerRadius(20)
-                                    .foregroundColor(Color(hex: "232323"))
-                                    .font(.system(size: 20).italic())
-                            } else {
-                                SecureField("Confirm Password", text: $confirmPassword)
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
-                                    .background(Color(hex: "C4C4C4"))
-                                    .cornerRadius(20)
-                                    .foregroundColor(Color(hex: "232323"))
-                                    .font(.system(size: 20).italic())
-                            }
-                            Button(action: {
-                                isConfirmPasswordVisible.toggle()
-                            }) {
-                                Image(systemName: isConfirmPasswordVisible ? "eye.slash" : "eye")
-                                    .foregroundColor(Color(hex: "232323"))
-                            }
-                            .padding(.trailing, 10)
-                        }
-                        .padding(.top, 15)
+                        TextFieldComponent(
+                            placeholderText: "Email",
+                            textContent: $email
+                        );
+
+                        TogglablePasswordFieldComponent(
+                            placeholderText: "Password",
+                            textContent: $password
+                        );
+
+                        TogglablePasswordFieldComponent(
+                            placeholderText: "Confirm Password",
+                            textContent: $confirmPassword
+                        );
                     }
                     .padding(.top, 30)
-                    
+
                     Spacer()
-                    
+
                     HStack {
                         Text("Next")
                             .foregroundColor(Color(hex: "ABB497"))

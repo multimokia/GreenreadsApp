@@ -20,10 +20,7 @@ struct ShelvesListView: View {
                         .padding(.horizontal, 15);
                 }
 
-                TextField("Search", text: $searchquery)
-                    .foregroundColor(.white)
-                    .padding(15)
-                    .background(RoundedRectangle(cornerRadius: 20).fill(.gray));
+                TextFieldComponent(placeholderText: "Search", textContent: $searchquery);
 
                 Button (action: {}) {
                     Image(systemName: "magnifyingglass")

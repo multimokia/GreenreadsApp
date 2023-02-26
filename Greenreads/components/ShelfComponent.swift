@@ -1,10 +1,3 @@
-//
-//  ShelfComponent.swift
-//  Greenreads
-//
-//  Created by Misty D'mello on 2023-02-24.
-//
-
 import SwiftUI
 
 struct ShelfComponent: View {
