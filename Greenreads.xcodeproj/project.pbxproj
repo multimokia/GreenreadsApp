@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26F8262629AB1254002FD801 /* GenderDropdownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F8262529AB1254002FD801 /* GenderDropdownComponent.swift */; };
 		680CBB29299ECCE500CB84EC /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 680CBB28299ECCE500CB84EC /* Supabase */; };
 		681456C52990927300D0ADA0 /* GreenreadsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681456C42990927300D0ADA0 /* GreenreadsApp.swift */; };
 		681456C72990927300D0ADA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681456C62990927300D0ADA0 /* ContentView.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26F8262529AB1254002FD801 /* GenderDropdownComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderDropdownComponent.swift; sourceTree = "<group>"; };
 		681456C12990927200D0ADA0 /* Greenreads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greenreads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		681456C42990927300D0ADA0 /* GreenreadsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenreadsApp.swift; sourceTree = "<group>"; };
 		681456C62990927300D0ADA0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				68AC092929A97A3D003DCED0 /* StarRatingComponent.swift */,
 				68FD196C29AADA6A00944850 /* TextFieldComponent.swift */,
 				68FD196E29AADD0B00944850 /* TogglablePasswordFieldComponent.swift */,
+				26F8262529AB1254002FD801 /* GenderDropdownComponent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				68AC092829A92DD7003DCED0 /* ShelfComponent.swift in Sources */,
 				68AC092A29A97A3D003DCED0 /* StarRatingComponent.swift in Sources */,
 				681456FC29909DE400D0ADA0 /* BookContentView.swift in Sources */,
+				26F8262629AB1254002FD801 /* GenderDropdownComponent.swift in Sources */,
 				68FD196F29AADD0B00944850 /* TogglablePasswordFieldComponent.swift in Sources */,
 				681456FA29909C7E00D0ADA0 /* SignupUserInfoView.swift in Sources */,
 				681456F629909BD800D0ADA0 /* LoginView.swift in Sources */,
