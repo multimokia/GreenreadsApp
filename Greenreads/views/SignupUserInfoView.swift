@@ -14,6 +14,8 @@ struct SignupUserInfoView: View {
     @State private var confirmPassword = ""
     @State private var selectedGender: String?
     let genderOptions = ["Male", "Female", "Other"]
+    @State private var isOver18 = false
+    @State private var hasAgreed = false
 
     var body: some View {
         ZStack {
@@ -46,16 +48,18 @@ struct SignupUserInfoView: View {
                         textContent: $email
                     );
 
-                    GenderDropdownComponent(selectedValue: $selectedGender,
-                                                         dropdownOptions: genderOptions,
-                                                         placeholder: "Gender")
+//                    GenderDropdownComponent(selectedValue: $selectedGender,
+//                                                         dropdownOptions: genderOptions,
+//                                                         placeholder: "Gender")
                     
-                    TextFieldComponent(
-                        placeholderText: "Last Name",
-                        textContent: $email
-                    );
+                    RadioButtonComponent(text: "I am over 18 years old", isSelected: isOver18, selectAction: {
+                        isOver18.toggle()
+                    }, infoText: "This information is needed to tailor your reading experience.")
 
-
+                    
+                    RadioButtonComponent(text: "I agree to these terms", isSelected: hasAgreed, selectAction: {
+                        hasAgreed.toggle()
+                    }, infoText: "By checking this box, you agree to the terms and conditions outlined in the user agreement.")
                     
                 }
                 .padding(.top, 30)
