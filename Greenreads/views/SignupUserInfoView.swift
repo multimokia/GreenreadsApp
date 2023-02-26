@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct SignupUserInfoView: View {
+    enum Gender: String, CaseIterable {
+        case male = "Male"
+        case female = "Female"
+        case other = "Other"
+    }
+
     @State private var email = ""
     @State private var username = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    @State private var selectedGender: String?
+    @State private var selectedGender = Gender.male;
     let genderOptions = ["Male", "Female", "Other"]
+
     @State private var isOver18 = false
     @State private var hasAgreed = false
 
@@ -48,15 +55,23 @@ struct SignupUserInfoView: View {
                         textContent: $email
                     );
 
-//                    GenderDropdownComponent(selectedValue: $selectedGender,
-//                                                         dropdownOptions: genderOptions,
-//                                                         placeholder: "Gender")
-                    
+                      Picker("Select a gender", selection: $selectedGender) {
+                        Text("Male").tag(Gender.male)
+                        Text("Female").tag(Gender.female)
+                        Text("Other").tag(Gender.other)
+                      }
+                        .padding()
+                        .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
+                        .background(Color(hex: "C4C4C4"))
+                        .cornerRadius(20)
+                        .foregroundColor(Color(hex: "232323"))
+                        .font(.system(size: 20).italic());
+
                     RadioButtonComponent(text: "I am over 18 years old", isSelected: isOver18, selectAction: {
                         isOver18.toggle()
                     }, infoText: "This information is needed to tailor your reading experience.")
 
-                    
+
                     RadioButtonComponent(text: "I agree to these terms", isSelected: hasAgreed, selectAction: {
                         hasAgreed.toggle()
                     }, infoText: "By checking this box, you agree to the terms and conditions outlined in the user agreement.")
