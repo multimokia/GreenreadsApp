@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isActive: Bool = true;
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Group {
+            if self.isActive {
+                SplashView();
+            }
+
+            else {
+                LoginView();
+            }
+        }.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                withAnimation {
+                    self.isActive = false;
+                }
+            }
         }
-        .padding()
     }
 }
 
