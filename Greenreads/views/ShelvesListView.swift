@@ -53,7 +53,7 @@ struct ShelvesListView: View {
                         "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/contemporary-fiction-night-time-book-cover-design-template-1be47835c3058eb42211574e0c4ed8bf_screen.jpg",
                         "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946622193-O7MD1082UC2NNF9M722O/Lear+Front.jpg"
                     ]);
-                    
+
                     Text("Favourites")
                         .padding(.leading, 15)
                         .foregroundColor(.white)

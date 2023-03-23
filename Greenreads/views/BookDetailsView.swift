@@ -89,7 +89,7 @@ struct BookDetailsViewInternals: View {
                     ]).frame(alignment: .bottom);
                 }
             }
-            
+
         }
     }
 }

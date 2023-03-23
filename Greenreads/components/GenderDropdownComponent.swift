@@ -19,11 +19,11 @@ struct GenderDropdownComponent: View {
                 .italic()
                 .foregroundColor(Color(hex: "C4C4C4"))
                 .padding(.leading, 20)
-            
+
             ZStack(alignment: .trailing) {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color(hex: "C4C4C4"), lineWidth: 2)
-                
+
                 HStack {
                     Text(selectedValue ?? "")
                         .foregroundColor(selectedValue == nil ? Color(hex: "C4C4C4") : Color(hex: "232323"))
@@ -32,7 +32,7 @@ struct GenderDropdownComponent: View {
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: 18))
                         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                    
+
                     Button(action: {
                         withAnimation {
                             isExpanded.toggle()
@@ -46,7 +46,7 @@ struct GenderDropdownComponent: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                
+
                 if isExpanded {
                     VStack(spacing: 0) {
                         ForEach(dropdownOptions, id: \.self) { option in

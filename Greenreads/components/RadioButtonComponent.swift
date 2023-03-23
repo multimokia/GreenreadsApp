@@ -54,9 +54,9 @@ struct RadioButtonComponent: View {
     let isSelected: Bool
     let selectAction: () -> Void
     let infoText: String
-    
+
     @State private var showingInfoPopup = false
-    
+
     var body: some View {
         HStack {
             Button(action: {
@@ -67,11 +67,11 @@ struct RadioButtonComponent: View {
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundColor(isSelected ? Color(hex: "ABB497") : Color(hex: "C4C4C4"))
-                    
+
                     Text(text)
                         .foregroundColor(.white)
                         .font(.system(size: 16))
-                    
+
                     Spacer()
                 }
                 .padding()
@@ -81,7 +81,7 @@ struct RadioButtonComponent: View {
                 .foregroundColor(Color(hex: "232323"))
                 .font(.system(size: 20).italic())
             }
-            
+
             Button(action: {
                 showingInfoPopup = true
             }) {
@@ -99,7 +99,7 @@ struct RadioButtonComponent: View {
 
 struct InfoPopup: View {
     let text: String
-    
+
     var body: some View {
         VStack {
             Text(text)

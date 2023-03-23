@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Book: Encodable, Decodable {
+struct Shelf: Encodable, Decodable {
     let id: Int?;
     let profile_id: UUID?;
     let name: String;

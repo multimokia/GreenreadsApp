@@ -6,13 +6,9 @@
 //
 
 import SwiftUI
-
+import GoTrue
 struct SignupUserInfoView: View {
-    enum Gender: String, CaseIterable {
-        case male = "Male"
-        case female = "Female"
-        case other = "Other"
-    }
+    @State var formData: SignupFormData;
 
     @State private var email = ""
     @State private var username = ""
@@ -28,7 +24,7 @@ struct SignupUserInfoView: View {
         ZStack {
             Color(hex: "40453D")
                 .ignoresSafeArea()
-            
+
             VStack {
 //                    TODO - REPLACE LOGO
                 Image("plain-logo")
@@ -36,26 +32,26 @@ struct SignupUserInfoView: View {
                     .frame(width: 321, height: 186)
                     .padding(.top, 15)
                     //.padding(.bottom, 5)
-                
+
                 Rectangle()
                     .fill(Color.white)
                     .frame(width: UIScreen.main.bounds.width / 1.5, height: 1)
                     .padding(.top, 20)
-                
+
                 // Spacer()
-                
+
                 VStack(spacing: 15) {
                     TextFieldComponent(
                         placeholderText: "First Name",
-                        textContent: $username
+                        textContent: $formData.firstName
                     );
 
                     TextFieldComponent(
                         placeholderText: "Last Name",
-                        textContent: $email
+                        textContent: $formData.lastName
                     );
 
-                      Picker("Select a gender", selection: $selectedGender) {
+                      Picker("Select a gender", selection: $formData.gender) {
                         Text("Male").tag(Gender.male)
                         Text("Female").tag(Gender.female)
                         Text("Other").tag(Gender.other)
@@ -67,15 +63,15 @@ struct SignupUserInfoView: View {
                         .foregroundColor(Color(hex: "232323"))
                         .font(.system(size: 20).italic());
 
-                    RadioButtonComponent(text: "I am over 18 years old", isSelected: isOver18, selectAction: {
-                        isOver18.toggle()
+                    RadioButtonComponent(text: "I am over 18 years old", isSelected: formData.isOver18, selectAction: {
+                        formData.isOver18.toggle()
                     }, infoText: "This information is needed to tailor your reading experience.")
 
 
-                    RadioButtonComponent(text: "I agree to these terms", isSelected: hasAgreed, selectAction: {
-                        hasAgreed.toggle()
+                    RadioButtonComponent(text: "I agree to these terms", isSelected: formData.hasAgreed, selectAction: {
+                        formData.hasAgreed.toggle()
                     }, infoText: "By checking this box, you agree to the terms and conditions outlined in the user agreement.")
-                    
+
                 }
                 .padding(.top, 30)
 
@@ -83,6 +79,25 @@ struct SignupUserInfoView: View {
 
                 Button(action: {
                     // Action to perform when the login button is tapped
+                    print(formData);
+                    Task {
+                        do {
+                            try await client.auth.signUp(
+                                email: formData.email,
+                                password: formData.password,
+                                data: [
+                                    "username": .string(formData.username),
+                                    "gender": .string(formData.gender.rawValue),
+                                    "first_name": .string(formData.firstName),
+                                    "last_name": .string(formData.lastName),
+                                    "is_over_18": .bool(formData.isOver18),
+                                ]
+                            )
+                        }
+                        catch {
+                            print("Error signing up: \(error)")
+                        }
+                    }
                 }) {
                     Text("Register")
                         .foregroundColor(.white)
@@ -100,6 +115,6 @@ struct SignupUserInfoView: View {
 
 struct SignupUserInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupUserInfoView()
+        SignupUserInfoView(formData: SignupFormData())
     }
 }

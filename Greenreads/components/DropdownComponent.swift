@@ -11,9 +11,9 @@ struct DropdownComponent: View {
     let values: [String]
     @Binding var selectedValue: String
     let placeholder: String
-    
+
     @State private var isExpanded = false
-    
+
     var body: some View {
         VStack {
             HStack {
