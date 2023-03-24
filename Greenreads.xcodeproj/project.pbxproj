@@ -40,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		687AA21029CCDA9100E7C12E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		6882B83829CD4D97000A78B7 /* Greenreads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Greenreads.entitlements; sourceTree = "<group>"; };
 		689C842C29CCBDD100493A20 /* Greenreads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greenreads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		689C842F29CCBDD100493A20 /* GreenreadsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenreadsApp.swift; sourceTree = "<group>"; };
 		689C843129CCBDD100493A20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		689C842E29CCBDD100493A20 /* Greenreads */ = {
 			isa = PBXGroup;
 			children = (
+				6882B83829CD4D97000A78B7 /* Greenreads.entitlements */,
 				689C843329CCBDD200493A20 /* Assets.xcassets */,
 				689C843F29CCBEF200493A20 /* components */,
 				689C843129CCBDD100493A20 /* ContentView.swift */,
@@ -408,6 +410,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Greenreads/Greenreads.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Greenreads/Preview Content\"";
@@ -436,6 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Greenreads/Greenreads.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Greenreads/Preview Content\"";

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Binding var isLoggedIn: Bool;
     @State private var email = ""
     @State private var password = ""
     @State private var isPasswordVisible = false
@@ -46,19 +47,10 @@ struct LoginView: View {
                     .padding(.top, 30)
 
                     Button(action: {
-                        Task {
-                            // Action to perform when the login button is tapped
-                            do {
-                                try await client.auth.signIn(
-                                    email: $email.wrappedValue,
-                                    password: $password.wrappedValue
-                                );
-                            }
-                            catch {
-                                print("Error on signin: \(error)")
-                            }
-                        }
-
+                        login(
+                            email: $email.wrappedValue,
+                            password: $password.wrappedValue
+                        )
                     }) {
                         Text("Log in")
                             .foregroundColor(.white)
@@ -89,8 +81,34 @@ struct LoginView: View {
     }
 }
 
+extension LoginView {
+    func login(email: String, password: String) {
+        Task {
+            do {
+                try await client.auth.signIn(email: email, password: password)
+                isLoggedIn = true;
+            }
+
+            catch {
+                print("Error signing in: \(error)")
+            }
+        }
+    }
+
+    func logout() {
+        Task {
+            do {
+                try await client.auth.signOut()
+                isLoggedIn = false;
+            }
+            catch {
+                print("Error signing out: \(error)")
+            }
+        }
+    }
+}
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(isLoggedIn: .constant(false))
     }
 }
