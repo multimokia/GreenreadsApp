@@ -9,12 +9,11 @@ import SwiftUI
 
 struct BookDetailsViewInternals: View {
     // Argdefs
-    let bookTitle: String;
-    let bookAuthor: String;
-    let bookTags: [String];
-    let rating: CGFloat;
-
+    @Binding var book: Book?;
     @State private var searchquery: String = "";
+
+    @State var books: [Book] = [];
+
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -40,17 +39,17 @@ struct BookDetailsViewInternals: View {
                 }
             }
 
-            Text(bookTitle)
+            Text(book!.title)
                 .foregroundColor(.white)
                 .padding(.horizontal, 50)
                 .font(.system(size: 68, weight: .heavy));
 
-            Text(bookAuthor)
+            Text(book!.author)
                 .foregroundColor(.gray)
                 .padding(.horizontal, 50)
                 .font(.system(size: 32));
 
-            Text(bookTags.joined(separator: " • "))
+            Text(["A","AA","AAA", "AAAAAAAA", "a", "-"].joined(separator: " • "))
                 .foregroundColor(.gray)
                 .padding(.horizontal, 50)
                 .font(.system(size: 20));
@@ -60,17 +59,17 @@ struct BookDetailsViewInternals: View {
             Group {
                 VStack {
                     HStack {
-                        StarRatingComponent(rating: rating, maxRating: 5)
+                        StarRatingComponent(rating: CGFloat(book!.rating), maxRating: 5)
                             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 0));
 
                         Spacer()
-                        Button(action: {}) {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                            .frame(width: 35, height: 35)
-                            .foregroundColor(.white)
-                            .background(Color(red: 0.48, green: 0.51, blue: 0.42))
-                            .clipShape(Circle());
+//                        Button(action: {}) {
+//                            Image(systemName: "square.and.arrow.up")
+//                        }
+//                            .frame(width: 35, height: 35)
+//                            .foregroundColor(.white)
+//                            .background(Color(red: 0.48, green: 0.51, blue: 0.42))
+//                            .clipShape(Circle());
 
                         Button(action: {}) {
                             Text("Add to library");
@@ -82,15 +81,16 @@ struct BookDetailsViewInternals: View {
                             .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
                     }
 
-                    ShelfComponent(bookThumbs: [
-                        "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
-                        "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/02/attachment_80004080-e1488217702832.jpg",
-                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946695868-3T5CPZ9W9WJURE2AGWPI/ZiSS+Front.jpg",
-                        "https://static-cse.canva.com/blob/921497/BlueOrangeandYellowCoolMemoir_InspirationalBookCover.jpg"
-                    ]).frame(alignment: .bottom);
+                    ShelfComponent(
+                        selectedBook: $book,
+                        books: books
+                    ).frame(alignment: .bottom);
+                }
+            }.onAppear {
+                Task {
+                    books = await getBooks();
                 }
             }
-
         }
     }
 }
@@ -99,22 +99,13 @@ struct BookDetailsViewInternals: View {
 // Via a single BookDetailsView item
 struct BookDetailsView: View {
     // Argdefs
-    let bookTitle: String;
-    let bookAuthor: String;
-    let bookTags: [String];
-    let backgroundImageUrl: String;
-    let rating: CGFloat;
+    @State var book: Book?;
 
     var body: some View {
         ZStack {
-            BookDetailsViewInternals(
-                bookTitle: bookTitle,
-                bookAuthor: bookAuthor,
-                bookTags: bookTags,
-                rating: rating
-            )
+            BookDetailsViewInternals(book: $book)
                 .background(
-                    AsyncImage(url: URL(string: backgroundImageUrl))
+                    AsyncImage(url: URL(string: book!.cover_image))
                         .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
                         .colorMultiply(Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0.7))
@@ -127,11 +118,19 @@ struct BookDetailsView: View {
 struct BookDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         BookDetailsView(
-            bookTitle: "DUNE",
-            bookAuthor: "Frank Herbert",
-            bookTags: ["Science Fiction", "Fiction", "Fantasy", "Classics", "Science Fiction Fantasy", "Audiobook", "Space Opera", "Novels", "Adventure", "Adult"],
-            backgroundImageUrl: "https://media.discordapp.net/attachments/640994428214837249/1075104620050919444/b.png.png",
-            rating: 4.27
+            book: Book(
+                id: 1,
+                title: "The Secret of the Purple Island",
+                author: "Lila Reyes",
+                isbn: nil,
+                publication_date: Date(),
+                cover_image: "https://source.unsplash.com/random",
+                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                rating: 4.234,
+                created_at: Date(),
+                updated_at: Date(),
+                deleted_at: nil
+            )
         ).background(.black);
     }
 }

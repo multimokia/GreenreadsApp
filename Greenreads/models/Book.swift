@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Book: Encodable, Decodable {
+struct Book: Encodable, Decodable, Hashable {
     let id: Int?;
     let title: String;
     let author: String;
-    let ISBN: String?;
+    let isbn: String?;
     let publication_date: Date;
-    let cover_image: String?;
+    let cover_image: String;
     let summary: String;
     let rating: Float;
     let created_at: Date?;

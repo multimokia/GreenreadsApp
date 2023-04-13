@@ -72,12 +72,14 @@ struct SignupAccountInfoView: View {
 
                         TogglablePasswordFieldComponent(
                             placeholderText: "Password",
-                            textContent: $formData.password
+                            textContent: $formData.password,
+                            validationFunction: nil
                         );
 
                         TogglablePasswordFieldComponent(
                             placeholderText: "Confirm Password",
-                            textContent: $formData.confirmPassword
+                            textContent: $formData.confirmPassword,
+                            validationFunction: nil
                         );
                     }
                     .padding(.top, 30)

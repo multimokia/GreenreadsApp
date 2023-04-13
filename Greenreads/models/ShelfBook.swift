@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShelfBook {
+struct ShelfBook: Encodable, Decodable {
     let id: Int8?
     let shelfId: Int8
     let bookId: Int8

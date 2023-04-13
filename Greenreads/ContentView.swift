@@ -20,11 +20,19 @@ struct ContentView: View {
             else {
                 if isLoggedIn {
                     BookDetailsView(
-                        bookTitle: "DUNE",
-                        bookAuthor: "Frank Herbert",
-                        bookTags: ["Science Fiction", "Fiction", "Fantasy", "Classics", "Science Fiction Fantasy", "Audiobook", "Space Opera", "Novels", "Adventure", "Adult"],
-                        backgroundImageUrl: "https://media.discordapp.net/attachments/640994428214837249/1075104620050919444/b.png.png",
-                        rating: 4.27
+                        book: Book(
+                            id: 1,
+                            title: "The Secret of the Purple Island",
+                            author: "Lila Reyes",
+                            isbn: nil,
+                            publication_date: Date(),
+                            cover_image: "https://source.unsplash.com/random",
+                            summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                            rating: 4.234,
+                            created_at: Date(),
+                            updated_at: Date(),
+                            deleted_at: nil
+                        )
                     ).background(.black);
                 }
 

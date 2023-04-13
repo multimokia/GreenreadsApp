@@ -1,16 +1,17 @@
 import SwiftUI
 
 struct ShelfComponent: View {
-    let bookThumbs: [String];
+    @Binding var selectedBook: Book?;
+    let books: [Book];
 
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 20) {
-                ForEach(bookThumbs, id:\.self) { thumbUrl in
-                    Button(action: {}) {
+                ForEach(books, id:\.self) { book in
+                    Button(action: { selectedBook = book }) {
                         AsyncImage(
                             url: URL(
-                                string: thumbUrl
+                                string: book.cover_image
                             )) { image in
                                 image.resizable();
                             } placeholder: {
@@ -25,8 +26,23 @@ struct ShelfComponent: View {
 
 struct ShelfComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ShelfComponent(bookThumbs: [
-            "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/02/attachment_80004080-e1488217702832.jpg",
-        ])
+        ShelfComponent(
+            selectedBook: .constant(nil),
+            books: [
+                Book(
+                    id: 1,
+                    title: "The Secret of the Purple Island",
+                    author: "Lila Reyes",
+                    isbn: nil,
+                    publication_date: Date(),
+                    cover_image: "https://source.unsplash.com/random",
+                    summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                    rating: 4.234,
+                    created_at: Date(),
+                    updated_at: Date(),
+                    deleted_at: nil
+                ),
+            ]
+        )
     }
 }

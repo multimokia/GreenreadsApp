@@ -10,13 +10,20 @@ import SwiftUI
 struct TogglablePasswordFieldComponent: View {
     let placeholderText: String;
     @Binding var textContent: String;
+    let validationFunction: ((String) -> String?)?;
 
+    @State private var validationError: String? = nil;
     @State var isPasswordVisible: Bool = false;
+
 
     var body: some View {
         ZStack(alignment: .trailing) {
             if isPasswordVisible {
-                TextFieldComponent(placeholderText: placeholderText, textContent: $textContent, validationFunction: nil)
+                TextFieldComponent(
+                    placeholderText: placeholderText,
+                    textContent: $textContent,
+                    validationFunction: validationFunction
+                )
             }
 
             else {

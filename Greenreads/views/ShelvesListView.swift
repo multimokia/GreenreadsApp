@@ -42,31 +42,70 @@ struct ShelvesListView: View {
                         .padding(.leading, 15)
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(bookThumbs: [
-                        "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/02/attachment_80004080-e1488217702832.jpg",
-                        "https://static-cse.canva.com/blob/921497/BlueOrangeandYellowCoolMemoir_InspirationalBookCover.jpg"
-                    ]);
+                    ShelfComponent(
+                        selectedBook: .constant(nil),
+                        books: [
+                            Book(
+                                id: 1,
+                                title: "The Secret of the Purple Island",
+                                author: "Lila Reyes",
+                                isbn: nil,
+                                publication_date: Date(),
+                                cover_image: "https://source.unsplash.com/random",
+                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                                rating: 4.234,
+                                created_at: Date(),
+                                updated_at: Date(),
+                                deleted_at: nil
+                            )
+                        ]
+                    );
 
                     Text("Read")
                         .padding(.leading, 15)
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(bookThumbs: [
-                        "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
-                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946695868-3T5CPZ9W9WJURE2AGWPI/ZiSS+Front.jpg",
-                        "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/contemporary-fiction-night-time-book-cover-design-template-1be47835c3058eb42211574e0c4ed8bf_screen.jpg",
-                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946622193-O7MD1082UC2NNF9M722O/Lear+Front.jpg"
-                    ]);
+                    ShelfComponent(
+                        selectedBook: .constant(nil),
+                        books: [
+                            Book(
+                                id: 1,
+                                title: "The Secret of the Purple Island",
+                                author: "Lila Reyes",
+                                isbn: nil,
+                                publication_date: Date(),
+                                cover_image: "https://source.unsplash.com/random",
+                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                                rating: 4.234,
+                                created_at: Date(),
+                                updated_at: Date(),
+                                deleted_at: nil
+                            )
+                        ]
+                    );
 
                     Text("Favourites")
                         .padding(.leading, 15)
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(bookThumbs: [
-                        "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg",
-                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946695868-3T5CPZ9W9WJURE2AGWPI/ZiSS+Front.jpg",
-                        "https://images.squarespace-cdn.com/content/v1/563890dce4b0facc12851d8f/1518946622193-O7MD1082UC2NNF9M722O/Lear+Front.jpg"
-                    ]);
+                    ShelfComponent(
+                        selectedBook: .constant(nil),
+                        books: [
+                            Book(
+                                id: 1,
+                                title: "The Secret of the Purple Island",
+                                author: "Lila Reyes",
+                                isbn: nil,
+                                publication_date: Date(),
+                                cover_image: "https://source.unsplash.com/random",
+                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
+                                rating: 4.234,
+                                created_at: Date(),
+                                updated_at: Date(),
+                                deleted_at: nil
+                            )
+                        ]
+                    );
                 }
             }
 
