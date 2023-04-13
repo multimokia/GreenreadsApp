@@ -36,7 +36,14 @@ struct LoginView: View {
                     VStack(spacing: 15) {
                         TextFieldComponent(
                             placeholderText: "Email",
-                            textContent: $email
+                            textContent: $email,
+                            validationFunction: { input in
+                                if (input.count > 0) {
+                                    return "This field is required.";
+                                }
+
+                                return nil;
+                            }
                         );
 
                         TogglablePasswordFieldComponent(

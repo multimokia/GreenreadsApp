@@ -16,7 +16,7 @@ struct TogglablePasswordFieldComponent: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             if isPasswordVisible {
-                TextFieldComponent(placeholderText: placeholderText, textContent: $textContent)
+                TextFieldComponent(placeholderText: placeholderText, textContent: $textContent, validationFunction: nil)
             }
 
             else {

@@ -28,7 +28,8 @@ struct BookDetailsViewInternals: View {
 
                 TextFieldComponent(
                     placeholderText: "Search",
-                    textContent: $searchquery
+                    textContent: $searchquery,
+                    validationFunction: nil
                 );
 
                 Button (action: {}) {

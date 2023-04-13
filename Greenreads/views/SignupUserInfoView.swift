@@ -43,12 +43,26 @@ struct SignupUserInfoView: View {
                 VStack(spacing: 15) {
                     TextFieldComponent(
                         placeholderText: "First Name",
-                        textContent: $formData.firstName
+                        textContent: $formData.firstName,
+                        validationFunction: { input in
+                            if (input.count == 0) {
+                                return "This field is required.";
+                            }
+
+                            return nil;
+                        }
                     );
 
                     TextFieldComponent(
                         placeholderText: "Last Name",
-                        textContent: $formData.lastName
+                        textContent: $formData.lastName,
+                        validationFunction: { input in
+                            if (input.count == 0) {
+                                return "This field is required.";
+                            }
+
+                            return nil;
+                        }
                     );
 
                       Picker("Select a gender", selection: $formData.gender) {
@@ -67,7 +81,7 @@ struct SignupUserInfoView: View {
                         formData.isOver18.toggle()
                     }, infoText: "This information is needed to tailor your reading experience.")
 
-
+                    // TODO: This field is required warnings
                     RadioButtonComponent(text: "I agree to these terms", isSelected: formData.hasAgreed, selectAction: {
                         formData.hasAgreed.toggle()
                     }, infoText: "By checking this box, you agree to the terms and conditions outlined in the user agreement.")

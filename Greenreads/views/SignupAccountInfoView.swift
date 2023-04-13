@@ -39,12 +39,26 @@ struct SignupAccountInfoView: View {
                     VStack(spacing: 15) {
                         TextFieldComponent(
                             placeholderText: "Username",
-                            textContent: $formData.username
+                            textContent: $formData.username,
+                            validationFunction: { input in
+                                if (input.count > 0) {
+                                    return "This field is required.";
+                                }
+
+                                return nil;
+                            }
                         );
 
                         TextFieldComponent(
                             placeholderText: "Email",
-                            textContent: $formData.email
+                            textContent: $formData.email,
+                            validationFunction: { input in
+                                if (input.count > 0) {
+                                    return "This field is required.";
+                                }
+
+                                return nil;
+                            }
                         );
 
                         TogglablePasswordFieldComponent(
@@ -81,7 +95,7 @@ struct SignupAccountInfoView: View {
     //                    .offset(x: -15, y: 0)
                 }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
