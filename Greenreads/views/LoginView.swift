@@ -67,6 +67,8 @@ struct LoginView: View {
                             .background(Color(hex: "919785")) // #919785 - 7A816C
                             .cornerRadius(15)
                     }
+                    .disabled(email.isEmpty || password.isEmpty) // Disable button if email or password is empty
+                    .buttonStyle(DisabledButtonStyle()) // Apply custom disabled button style
                     .padding(.top, 30)
 
                     Spacer()
@@ -87,6 +89,17 @@ struct LoginView: View {
         }
     }
 }
+
+
+// Custom button style for disabled buttons
+struct DisabledButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(0.5)
+            .disabled(true)
+    }
+}
+
 
 extension LoginView {
     func login(email: String, password: String) {
