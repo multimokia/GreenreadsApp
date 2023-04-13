@@ -20,7 +20,11 @@ struct ShelvesListView: View {
                         .padding(.horizontal, 15);
                 }
 
-                TextFieldComponent(placeholderText: "Search", textContent: $searchquery, validationFunction: nil);
+                TextFieldComponent(
+                    placeholderText: "Search",
+                    textContent: $searchquery,
+                    validationFunction: nil
+                );
 
                 Button (action: {}) {
                     Image(systemName: "magnifyingglass")

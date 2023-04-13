@@ -15,6 +15,11 @@ struct SignupAccountInfoView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
 
+
+    @State var isUsernameValid = false;
+    @State var isEmailValid = false;
+
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -41,10 +46,12 @@ struct SignupAccountInfoView: View {
                             placeholderText: "Username",
                             textContent: $formData.username,
                             validationFunction: { input in
-                                if (input.count > 0) {
+                                if (input.count == 0) {
+                                    isUsernameValid = false;
                                     return "This field is required.";
                                 }
 
+                                isUsernameValid = true;
                                 return nil;
                             }
                         );
@@ -53,10 +60,12 @@ struct SignupAccountInfoView: View {
                             placeholderText: "Email",
                             textContent: $formData.email,
                             validationFunction: { input in
-                                if (input.count > 0) {
+                                if (input.count == 0) {
+                                    isEmailValid = false;
                                     return "This field is required.";
                                 }
 
+                                isEmailValid = true;
                                 return nil;
                             }
                         );
@@ -83,6 +92,7 @@ struct SignupAccountInfoView: View {
                             Image(systemName: "chevron.right")
                                 .foregroundColor(Color(hex: "ABB497"))
                         }
+                        .disabled(!(isUsernameValid && isEmailValid))
                     }
                     .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
                     .background(Color(hex: "40453D"))

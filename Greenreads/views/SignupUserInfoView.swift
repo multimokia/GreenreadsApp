@@ -20,6 +20,10 @@ struct SignupUserInfoView: View {
     @State private var isOver18 = false
     @State private var hasAgreed = false
 
+    @State var isFirstNameValid: Bool? = true;
+    @State var isLastNameValid: Bool? = true;
+    @State private var isFormInvalid = false;
+
     var body: some View {
         ZStack {
             Color(hex: "40453D")

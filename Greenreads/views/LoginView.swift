@@ -13,6 +13,9 @@ struct LoginView: View {
     @State private var password = ""
     @State private var isPasswordVisible = false
 
+    @State var isEmailValid = false;
+    @State var isFormInvalid = false;
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -38,17 +41,28 @@ struct LoginView: View {
                             placeholderText: "Email",
                             textContent: $email,
                             validationFunction: { input in
-                                if (input.count > 0) {
+                                if (input.count == 0) {
+                                    isEmailValid = false;
                                     return "This field is required.";
                                 }
 
+                                isEmailValid = true;
                                 return nil;
                             }
                         );
 
                         TogglablePasswordFieldComponent(
                             placeholderText: "Password",
-                            textContent: $password
+                            textContent: $password,
+                            validationFunction: { input in
+                                if (input.count == 0) {
+                                    isEmailValid = false;
+                                    return "This field is required.";
+                                }
+
+                                isEmailValid = true;
+                                return nil;
+                            }
                         );
                     }
                     .padding(.top, 30)
@@ -61,8 +75,6 @@ struct LoginView: View {
                     }) {
                         Text("Log in")
                             .foregroundColor(.white)
-                        // 686868 - 7A816C
-                            //.font(.headline)
                             .frame(width: UIScreen.main.bounds.width / 1.5, height: 50)
                             .background(Color(hex: "919785")) // #919785 - 7A816C
                             .cornerRadius(15)
