@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ShelvesListView: View {
     @State private var searchquery: String = "";
+    @State private var shelvesWithBooks: [ShelfWithBooks] = [];
 
     var body: some View {
         VStack {
@@ -38,75 +39,22 @@ struct ShelvesListView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("To Read")
-                        .padding(.leading, 15)
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(
-                        selectedBook: .constant(nil),
-                        books: [
-                            Book(
-                                id: 1,
-                                title: "The Secret of the Purple Island",
-                                author: "Lila Reyes",
-                                isbn: nil,
-                                publication_date: Date(),
-                                cover_image: "https://source.unsplash.com/random",
-                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
-                                rating: 4.234,
-                                created_at: Date(),
-                                updated_at: Date(),
-                                deleted_at: nil
-                            )
-                        ]
-                    );
-
-                    Text("Read")
-                        .padding(.leading, 15)
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(
-                        selectedBook: .constant(nil),
-                        books: [
-                            Book(
-                                id: 1,
-                                title: "The Secret of the Purple Island",
-                                author: "Lila Reyes",
-                                isbn: nil,
-                                publication_date: Date(),
-                                cover_image: "https://source.unsplash.com/random",
-                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
-                                rating: 4.234,
-                                created_at: Date(),
-                                updated_at: Date(),
-                                deleted_at: nil
-                            )
-                        ]
-                    );
-
-                    Text("Favourites")
-                        .padding(.leading, 15)
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .heavy));
-                    ShelfComponent(
-                        selectedBook: .constant(nil),
-                        books: [
-                            Book(
-                                id: 1,
-                                title: "The Secret of the Purple Island",
-                                author: "Lila Reyes",
-                                isbn: nil,
-                                publication_date: Date(),
-                                cover_image: "https://source.unsplash.com/random",
-                                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
-                                rating: 4.234,
-                                created_at: Date(),
-                                updated_at: Date(),
-                                deleted_at: nil
-                            )
-                        ]
-                    );
+                    ForEach(shelvesWithBooks, id: \.id) { shelfWithBook in
+                        Text(shelfWithBook.name)
+                            .padding(.leading, 15)
+                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .heavy));
+                        ShelfComponent(
+                            selectedBook: .constant(nil),
+                            books: shelfWithBook.books
+                        );
+                    }
                 }
+                    .onAppear {
+                        Task {
+                            shelvesWithBooks = await getShelvesWithBooks();
+                        }
+                    }
             }
 
             VStack {

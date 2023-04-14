@@ -14,4 +14,13 @@ struct Shelf: Encodable, Decodable {
     let created_at: Date?;
     let updated_at: Date?;
     let deleted_at: Date?;
+
+    init(name: String) {
+        self.id = nil;
+        self.profile_id = nil;
+        self.name = name;
+        self.created_at = nil;
+        self.updated_at = nil;
+        self.deleted_at = nil;
+    }
 }
