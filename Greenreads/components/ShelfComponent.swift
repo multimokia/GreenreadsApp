@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ShelfComponent: View {
     @Binding var selectedBook: Book?;
+    let shelfId: Int?;
     let books: [Book];
 
     var body: some View {
@@ -18,8 +19,23 @@ struct ShelfComponent: View {
                                 ProgressView()
                             }.frame(width: 120, height: 180)
                     }
+                        .contextMenu {
+                            if (shelfId != nil) {
+                                Button(action: {
+                                    Task {
+                                        await removeBookFromShelf(
+                                            bookId: book.id!,
+                                            shelfId: shelfId!
+                                        );
+                                    }
+                                }) {
+                                    Text("Remove from shelf")
+                                }
+                            }
+                        }
                 }
-            }.padding(.horizontal, 15)
+            }
+                .padding(.horizontal, 15)
         }
     }
 }
@@ -28,6 +44,7 @@ struct ShelfComponent_Previews: PreviewProvider {
     static var previews: some View {
         ShelfComponent(
             selectedBook: .constant(nil),
+            shelfId: 0,
             books: [
                 Book(
                     id: 1,

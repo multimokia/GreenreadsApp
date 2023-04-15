@@ -9,18 +9,23 @@ import SwiftUI
 
 struct BookDetailsViewInternals: View {
     // Argdefs
+    @Binding var currentView: AnyView?;
     @Binding var book: Book?;
-    @State private var searchquery: String = "";
 
+    // States
+    @State private var searchquery: String = "";
     @State var books: [Book] = [];
     @State var shelves: [Shelf] = [];
+    @State var dispBooks: [Book] = []
 
 
     var body: some View {
         ZStack {
                 VStack(alignment: .leading) {
                     HStack {
-                        NavigationLink(destination: ShelvesListView()) {
+                        Button (action: {
+                            currentView = AnyView(ShelvesListView(currentView: $currentView))
+                        }) {
                             Image(systemName: "ellipsis")
                                 .foregroundColor(.white)
                                 .font(.system(size: 20, weight: .light))
@@ -32,21 +37,14 @@ struct BookDetailsViewInternals: View {
                             textContent: $searchquery,
                             validationFunction: nil
                         );
-
-                        Button (action: {}) {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20, weight: .light))
-                                .padding(.horizontal, 15);
-                        }
                     }
 
-                    Text(book!.title)
+                    Text(book?.title ?? "")
                         .foregroundColor(.white)
                         .padding(.horizontal, 50)
                         .font(.system(size: 68, weight: .heavy));
 
-                    Text(book!.author)
+                    Text(book?.author ?? "")
                         .foregroundColor(.gray)
                         .padding(.horizontal, 50)
                         .font(.system(size: 32));
@@ -61,7 +59,7 @@ struct BookDetailsViewInternals: View {
                     Group {
                         VStack {
                             HStack {
-                                StarRatingComponent(rating: CGFloat(book!.rating), maxRating: 5)
+                                StarRatingComponent(rating: CGFloat(book?.rating ?? 0.0), maxRating: 5)
                                     .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 0));
 
                                 Spacer()
@@ -71,10 +69,12 @@ struct BookDetailsViewInternals: View {
                                     ForEach(shelves, id: \.id) { shelf in
                                         Button(action: {
                                             Task {
-                                                await addBookToshelf(
-                                                    bookId: book!.id!,
-                                                    shelfId: shelf.id!
-                                                );
+                                                if (book != nil) {
+                                                    await addBookToshelf(
+                                                        bookId: book!.id!,
+                                                        shelfId: shelf.id!
+                                                    );
+                                                }
                                             }
                                         }) {
                                             Text(shelf.name)
@@ -92,13 +92,28 @@ struct BookDetailsViewInternals: View {
 
                             ShelfComponent(
                                 selectedBook: $book,
-                                books: books
-                            ).frame(alignment: .bottom);
+                                shelfId: nil,
+                                books: dispBooks
+                            ).frame(alignment: .bottom)
+                             .onChange(of: searchquery, perform: { query in
+                                if (query == "") {
+                                    dispBooks = books;
+                                }
+
+                                else {
+                                    dispBooks = books.filter {
+                                        $0.title.lowercased().contains(query.lowercased())
+                                    }
+                                }
+                             });
                         }
                     }.onAppear {
                         Task {
                             books = await getBooks();
-                            shelves = await getShelves()
+                            dispBooks = books;
+                            shelves = await getShelves();
+
+                            book = books[0];
                         }
                     }
                 }
@@ -113,13 +128,14 @@ struct BookDetailsViewInternals: View {
 // Via a single BookDetailsView item
 struct BookDetailsView: View {
     // Argdefs
+    @Binding var currentView: AnyView?;
     @State var book: Book?;
 
     var body: some View {
         ZStack {
-            BookDetailsViewInternals(book: $book)
+            BookDetailsViewInternals(currentView: $currentView, book: $book)
                 .background(
-                    AsyncImage(url: URL(string: book!.cover_image))
+                    AsyncImage(url: URL(string: book?.cover_image ?? "https://source.unsplash.com/random"))
                         .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
                         .colorMultiply(Color(red: 0.9, green: 0.9, blue: 0.9, opacity: 0.7))
@@ -132,19 +148,8 @@ struct BookDetailsView: View {
 struct BookDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         BookDetailsView(
-            book: Book(
-                id: 1,
-                title: "The Secret of the Purple Island",
-                author: "Lila Reyes",
-                isbn: nil,
-                publication_date: Date(),
-                cover_image: "https://source.unsplash.com/random",
-                summary: "When the five young friends journey to the remote island, they find more than they ever could have imagined. The secrets they uncover will change their lives forever.",
-                rating: 4.234,
-                created_at: Date(),
-                updated_at: Date(),
-                deleted_at: nil
-            )
+            currentView: .constant(nil),
+            book: nil
         ).background(.black);
     }
 }

@@ -9,10 +9,10 @@ import Foundation
 
 struct ProfileBook {
     let id: Int8?
-    let profileId: UUID
-    let bookId: Int8
+    let profile_id: UUID
+    let book_id: Int8
     let rating: Int8
-    let createdAt: Date
-    let updatedAt: Date?
-    let deletedAt: Date?
+    let created_at: Date
+    let updated_at: Date?
+    let deleted_at: Date?
 }

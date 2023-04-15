@@ -64,8 +64,10 @@ func deleteShelf(shelfId: Int) async -> Shelf {
 
 func getShelvesWithBooks() async -> [ShelfWithBooks] {
     do {
-        let resp: [ShelfWithBooks] = try await client.functions.invoke(functionName: "getShelvesWithBooks");
-        print("Resp for shelves with books")
+        let query = client.database.rpc(fn: "get_shelves_with_books")
+
+        let resp: [ShelfWithBooks] = try await query.execute().value;
+        print("resp: \(resp)")
         return resp;
     }
 

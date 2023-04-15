@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ShelvesListView: View {
+    // Args
+    @Binding var currentView: AnyView?;
+
+    // States
+    @State var selectedBook: Book? = nil;
     @State private var searchquery: String = "";
     @State private var shelvesWithBooks: [ShelfWithBooks] = [];
+    @State private var dispShelves: [ShelfWithBooks] = []
 
     var body: some View {
         VStack {
             HStack {
-                Button (action: {}) {
-                    Image(systemName: "ellipsis")
+                Button (action: {
+                    currentView = AnyView(BookDetailsView(currentView: $currentView, book: nil));
+                }) {
+                    Image(systemName: "arrow.left")
                         .foregroundColor(.white)
                         .font(.system(size: 20, weight: .light))
                         .padding(.horizontal, 15);
@@ -26,39 +34,59 @@ struct ShelvesListView: View {
                     textContent: $searchquery,
                     validationFunction: nil
                 );
-
-                Button (action: {}) {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .light))
-                        .padding(.horizontal, 15);
-                }
             }.padding(.bottom, 15);
 
             Spacer();
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    ForEach(shelvesWithBooks, id: \.id) { shelfWithBook in
-                        Text(shelfWithBook.name)
-                            .padding(.leading, 15)
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .heavy));
-                        ShelfComponent(
-                            selectedBook: .constant(nil),
-                            books: shelfWithBook.books
-                        );
+                    ForEach(dispShelves, id: \.id) { shelfWithBook in
+                        Group {
+                            Text(shelfWithBook.name)
+                                .padding(.leading, 15)
+                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .heavy));
+                            ShelfComponent(
+                                selectedBook: $selectedBook,
+                                shelfId: shelfWithBook.id,
+                                books: shelfWithBook.books ?? []
+                            )
+                                .frame(minWidth: 150, minHeight: 180)
+                        }
+                        .contextMenu {
+                                Button(action: {
+                                    Task {
+                                        await deleteShelf(shelfId: shelfWithBook.id);
+                                    }
+                                }) {
+                                    Text("Delete shelf")
+                                }
+                            }
+                    };
+                };
+            }
+                .onAppear {
+                    Task {
+                        shelvesWithBooks = await getShelvesWithBooks();
+                        dispShelves = shelvesWithBooks;
                     }
                 }
-                    .onAppear {
-                        Task {
-                            shelvesWithBooks = await getShelvesWithBooks();
+                .onChange(of: searchquery, perform: { query in
+
+                    if (query == "") {
+                        dispShelves = shelvesWithBooks;
+                    }
+
+                    else {
+                        dispShelves = shelvesWithBooks.filter {
+                            $0.name.lowercased().contains(query.lowercased())
                         }
                     }
-            }
+                })
 
             VStack {
                 HStack {
+
                     Spacer()
 
                     Button(action: {}) {
@@ -70,12 +98,16 @@ struct ShelvesListView: View {
                         .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 15));
                 }
             }
-        }.background(Color(red: 0.25, green: 0.27, blue: 0.24));
+        }
+            .background(Color(red: 0.25, green: 0.27, blue: 0.24))
+            .onChange(of: selectedBook, perform: { book in
+                currentView = AnyView(BookDetailsView(currentView: $currentView, book: book));
+            });
     }
 }
 
 struct ShelvesListView_Previews: PreviewProvider {
     static var previews: some View {
-        ShelvesListView()
+        ShelvesListView(currentView: .constant(nil))
     }
 }

@@ -9,10 +9,10 @@ import Foundation
 
 struct ProfileShelf {
     let id: Int8?
-    let profileId: UUID
-    let shelfId: Int8
-    let createdAt: Date
-    let updatedAt: Date?
-    let deletedAt: Date?
+    let profile_id: UUID
+    let shelf_id: Int8
+    let created_at: Date
+    let updated_at: Date?
+    let deleted_at: Date?
 }
 
