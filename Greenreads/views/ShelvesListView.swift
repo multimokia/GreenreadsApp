@@ -17,6 +17,9 @@ struct ShelvesListView: View {
     @State private var shelvesWithBooks: [ShelfWithBooks] = [];
     @State private var dispShelves: [ShelfWithBooks] = []
 
+    @State private var newShelfName: String = "";
+    @State private var isCreatingNewShelf = false;
+
     var body: some View {
         VStack {
             HStack {
@@ -86,10 +89,24 @@ struct ShelvesListView: View {
 
             VStack {
                 HStack {
-
+                    if (isCreatingNewShelf) {
+                        TextField("Enter a shelf name", text: $newShelfName)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white)
+                            )
+                            .onSubmit {
+                                isCreatingNewShelf = false;
+                                Task {
+                                    await createShelf(name: newShelfName);
+                                }
+                            }
+                    }
                     Spacer()
 
-                    Button(action: {}) {
+                    Button(action: {
+                        isCreatingNewShelf = true;
+                    }) {
                         Text("New Shelf");
                     }
                         .cornerRadius(20)

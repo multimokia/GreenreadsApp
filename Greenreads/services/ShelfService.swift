@@ -46,8 +46,7 @@ func removeBookFromShelf(bookId: Int, shelfId: Int) async -> ShelfBook {
 func createShelf(name: String) async -> Shelf {
     let query = client.database.from("shelves")
         .insert(values: Shelf(name: name))
-        .select()
-        .single();
+
 
     let resp: Shelf = try! await query.execute().value;
     return resp;

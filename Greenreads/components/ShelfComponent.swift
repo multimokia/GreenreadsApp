@@ -8,34 +8,42 @@ struct ShelfComponent: View {
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 20) {
-                ForEach(books, id:\.self) { book in
-                    Button(action: { selectedBook = book }) {
-                        AsyncImage(
-                            url: URL(
-                                string: book.cover_image
-                            )) { image in
-                                image.resizable();
-                            } placeholder: {
-                                ProgressView()
-                            }.frame(width: 120, height: 180)
-                    }
-                        .contextMenu {
-                            if (shelfId != nil) {
-                                Button(action: {
-                                    Task {
-                                        await removeBookFromShelf(
-                                            bookId: book.id!,
-                                            shelfId: shelfId!
-                                        );
+                if (books.count > 0) {
+                    ForEach(books, id:\.self) { book in
+                        Button(action: { selectedBook = book }) {
+                            AsyncImage(
+                                url: URL(
+                                    string: book.cover_image
+                                )) { image in
+                                    image.resizable();
+                                } placeholder: {
+                                    ProgressView()
+                                }.frame(width: 120, height: 180)
+                        }
+                            .contextMenu {
+                                if (shelfId != nil) {
+                                    Button(action: {
+                                        Task {
+                                            await removeBookFromShelf(
+                                                bookId: book.id!,
+                                                shelfId: shelfId!
+                                            );
+                                        }
+                                    }) {
+                                        Text("Remove from shelf")
                                     }
-                                }) {
-                                    Text("Remove from shelf")
                                 }
                             }
-                        }
+                    }
+                    .padding(.horizontal, 15)
+                }
+
+                else {
+                    Text("No items to display.")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .tint(Color(red: 0.48, green: 0.51, blue: 0.42));
                 }
             }
-                .padding(.horizontal, 15)
         }
     }
 }
