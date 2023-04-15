@@ -88,20 +88,21 @@ struct ShelvesListView: View {
                 })
 
             VStack {
-                HStack {
-                    if (isCreatingNewShelf) {
-                        TextField("Enter a shelf name", text: $newShelfName)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.white)
-                            )
-                            .onSubmit {
-                                isCreatingNewShelf = false;
-                                Task {
-                                    await createShelf(name: newShelfName);
-                                }
+                if (isCreatingNewShelf) {
+                    TextFieldComponent(
+                        placeholderText: "Enter a shelf name",
+                        textContent: $newShelfName,
+                        validationFunction: nil
+                    )
+                        .onSubmit {
+                            isCreatingNewShelf = false;
+                            Task {
+                                let newShelf = await createShelf(name: newShelfName);
+                                shelvesWithBooks.append(ShelfWithBooks(shelf: newShelf))
                             }
-                    }
+                        }
+                }
+                HStack {
                     Spacer()
 
                     Button(action: {

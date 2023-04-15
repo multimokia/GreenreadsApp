@@ -113,7 +113,9 @@ struct BookDetailsViewInternals: View {
                             dispBooks = books;
                             shelves = await getShelves();
 
-                            book = books[0];
+                            if (book == nil) {
+                                book = books[0];
+                            }
                         }
                     }
                 }

@@ -45,7 +45,9 @@ func removeBookFromShelf(bookId: Int, shelfId: Int) async -> ShelfBook {
 
 func createShelf(name: String) async -> Shelf {
     let query = client.database.from("shelves")
-        .insert(values: Shelf(name: name))
+        .insert(values: Shelf(name: name), returning: .representation)
+        .select()
+        .single();
 
 
     let resp: Shelf = try! await query.execute().value;
@@ -55,7 +57,8 @@ func createShelf(name: String) async -> Shelf {
 func deleteShelf(shelfId: Int) async -> Shelf {
     let query = client.database.from("shelves")
         .delete()
-        .match(query: [ "id": shelfId ]);
+        .match(query: [ "id": shelfId ])
+        .single();
 
     let resp: Shelf = try! await query.execute().value;
     return resp;
@@ -66,7 +69,6 @@ func getShelvesWithBooks() async -> [ShelfWithBooks] {
         let query = client.database.rpc(fn: "get_shelves_with_books")
 
         let resp: [ShelfWithBooks] = try await query.execute().value;
-        print("resp: \(resp)")
         return resp;
     }
 

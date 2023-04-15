@@ -17,7 +17,6 @@ struct AppMainView: View {
             .onAppear {
                 currentView = AnyView(BookDetailsView(currentView: $currentView));
             }
-
     }
 }
 
