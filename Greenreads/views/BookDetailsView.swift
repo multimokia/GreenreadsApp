@@ -16,15 +16,19 @@ struct BookDetailsViewInternals: View {
     @State private var searchquery: String = "";
     @State var books: [Book] = [];
     @State var shelves: [Shelf] = [];
-    @State var dispBooks: [Book] = []
-
+    @State var dispBooks: [Book] = [];
+    @State private var rating: CGFloat = 0;
 
     var body: some View {
         ZStack {
                 VStack(alignment: .leading) {
                     HStack {
                         Button (action: {
-                            currentView = AnyView(ShelvesListView(currentView: $currentView))
+                            currentView = AnyView(
+                                ShelvesListView(
+                                    currentView: $currentView
+                                )
+                            )
                         }) {
                             Image(systemName: "ellipsis")
                                 .foregroundColor(.white)
@@ -37,6 +41,21 @@ struct BookDetailsViewInternals: View {
                             textContent: $searchquery,
                             validationFunction: nil
                         );
+
+                        Button (action: {
+                            currentView = AnyView(
+                                BookContentView(
+                                    currentView: $currentView,
+                                    book: $book,
+                                    rating: rating
+                                )
+                            );
+                        }) {
+                            Image(systemName: "info")
+                                .foregroundColor(.white)
+                                .font(.system(size: 20, weight: .light))
+                                .padding(.horizontal, 15);
+                        }
                     }
 
                     Text(book?.title ?? "")
@@ -49,21 +68,24 @@ struct BookDetailsViewInternals: View {
                         .padding(.horizontal, 50)
                         .font(.system(size: 32));
 
-                    Text(["A","AA","AAA", "AAAAAAAA", "a", "-"].joined(separator: " • "))
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 50)
-                        .font(.system(size: 20));
+//                    Text(["A","AA","AAA", "AAAAAAAA", "a", "-"].joined(separator: " • "))
+//                        .foregroundColor(.gray)
+//                        .padding(.horizontal, 50)
+//                        .font(.system(size: 20));
 
                     Spacer()
 
                     Group {
                         VStack {
                             HStack {
-                                StarRatingComponent(rating: CGFloat(book?.rating ?? 0.0), maxRating: 5)
+                                StarRatingComponent(
+                                    rating: $rating,
+                                    maxRating: 5,
+                                    bookId: book?.id ?? 0
+                                )
                                     .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 0));
 
-                                Spacer()
-
+                                Spacer();
 
                                 Menu {
                                     ForEach(shelves, id: \.id) { shelf in
@@ -116,6 +138,8 @@ struct BookDetailsViewInternals: View {
                             if (book == nil) {
                                 book = books[0];
                             }
+
+                            rating = CGFloat(book?.rating ?? 0);
                         }
                     }
                 }

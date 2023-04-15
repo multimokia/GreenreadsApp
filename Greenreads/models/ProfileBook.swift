@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProfileBook {
+struct ProfileBook: Encodable, Decodable {
     let id: Int8?
     let profile_id: UUID
     let book_id: Int8

@@ -10,6 +10,7 @@
 		6841E42A29E79A7600C2F8D1 /* BookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841E42929E79A7600C2F8D1 /* BookService.swift */; };
 		6841E42C29E7A18D00C2F8D1 /* ShelfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841E42B29E7A18D00C2F8D1 /* ShelfService.swift */; };
 		687AA21129CCDA9100E7C12E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687AA21029CCDA9100E7C12E /* Enums.swift */; };
+		6886526229EB13C400306495 /* RatingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6886526129EB13C400306495 /* RatingService.swift */; };
 		688A070229EA115B00223154 /* AppMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A070129EA115B00223154 /* AppMainView.swift */; };
 		688E032D29E8CE4A008BFF12 /* ShelfWithBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688E032C29E8CE4A008BFF12 /* ShelfWithBooks.swift */; };
 		689C843029CCBDD100493A20 /* GreenreadsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C842F29CCBDD100493A20 /* GreenreadsApp.swift */; };
@@ -47,6 +48,7 @@
 		6841E42B29E7A18D00C2F8D1 /* ShelfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfService.swift; sourceTree = "<group>"; };
 		687AA21029CCDA9100E7C12E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6882B83829CD4D97000A78B7 /* Greenreads.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Greenreads.entitlements; sourceTree = "<group>"; };
+		6886526129EB13C400306495 /* RatingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingService.swift; sourceTree = "<group>"; };
 		688A070129EA115B00223154 /* AppMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMainView.swift; sourceTree = "<group>"; };
 		688E032C29E8CE4A008BFF12 /* ShelfWithBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelfWithBooks.swift; path = ../../../../Documents/ShelfWithBooks.swift; sourceTree = "<group>"; };
 		689C842C29CCBDD100493A20 /* Greenreads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Greenreads.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 			children = (
 				6841E42929E79A7600C2F8D1 /* BookService.swift */,
 				6841E42B29E7A18D00C2F8D1 /* ShelfService.swift */,
+				6886526129EB13C400306495 /* RatingService.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				689C845A29CCC4EB00493A20 /* RadioButtonComponent.swift in Sources */,
 				689C846D29CCCC1200493A20 /* SignupAccountInfoView.swift in Sources */,
 				689C845029CCC44200493A20 /* ProfileBook.swift in Sources */,
+				6886526229EB13C400306495 /* RatingService.swift in Sources */,
 				689C846729CCCBE100493A20 /* BookDetailsView.swift in Sources */,
 				688E032D29E8CE4A008BFF12 /* ShelfWithBooks.swift in Sources */,
 				689C844C29CCC41A00493A20 /* Shelf.swift in Sources */,
