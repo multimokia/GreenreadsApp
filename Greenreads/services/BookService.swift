@@ -13,3 +13,12 @@ func getBooks() async -> [Book] {
     let resp: [Book] = try! await query.execute().value;
     return resp;
 }
+
+func getBook(bookId: Int) async -> Book? {
+    let query = client.database.from("books")
+        .select()
+        .match(query: [ "id": bookId ]);
+
+    let resp: Book? = try! await query.execute().value;
+    return resp;
+}

@@ -17,7 +17,6 @@ struct BookDetailsViewInternals: View {
     @State var books: [Book] = [];
     @State var shelves: [Shelf] = [];
     @State var dispBooks: [Book] = [];
-    @State private var rating: CGFloat = 0;
 
     var body: some View {
         ZStack {
@@ -47,7 +46,7 @@ struct BookDetailsViewInternals: View {
                                 BookContentView(
                                     currentView: $currentView,
                                     book: $book,
-                                    rating: rating
+                                    rating: CGFloat(book?.rating ?? 0)
                                 )
                             );
                         }) {
@@ -79,12 +78,13 @@ struct BookDetailsViewInternals: View {
                         VStack {
                             HStack {
                                 StarRatingComponent(
-                                    rating: $rating,
+                                    book: $book,
+                                    books: $books,
+                                    rating: CGFloat(book?.rating ?? 0),
                                     maxRating: 5,
                                     bookId: book?.id ?? 0
                                 )
                                     .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 0));
-
                                 Spacer();
 
                                 Menu {
@@ -127,6 +127,17 @@ struct BookDetailsViewInternals: View {
                                         $0.title.lowercased().contains(query.lowercased())
                                     }
                                 }
+                             })
+                             .onChange(of: books, perform: { _books in
+                                if (searchquery == "") {
+                                    dispBooks = _books;
+                                }
+
+                                else {
+                                    dispBooks = _books.filter {
+                                        $0.title.lowercased().contains(searchquery.lowercased())
+                                    }
+                                }
                              });
                         }
                     }.onAppear {
@@ -138,8 +149,6 @@ struct BookDetailsViewInternals: View {
                             if (book == nil) {
                                 book = books[0];
                             }
-
-                            rating = CGFloat(book?.rating ?? 0);
                         }
                     }
                 }

@@ -16,7 +16,9 @@ struct StarRatingComponent: View {
         }
     }
 
-    @Binding var rating: CGFloat;
+    @Binding var book: Book?;
+    @Binding var books: [Book];
+    var rating: CGFloat;
     let maxRating: Int;
     let bookId: Int;
     let ratingColor: Color = .yellow;
@@ -40,11 +42,9 @@ struct StarRatingComponent: View {
                                 .onTapGesture {
                                     print(index + 1);
                                     Task {
-                                        let profileBook = await rateBook(bookId: bookId, rating: index + 1);
-
-                                        if (profileBook != nil) {
-                                            rating = CGFloat(profileBook?.rating ?? 0);
-                                        }
+                                        let _book = await rateBook(bookId: bookId, rating: index + 1);
+                                        book = _book;
+                                        books = await getBooks();
                                     }
                                 };
                         }
@@ -56,8 +56,8 @@ struct StarRatingComponent: View {
     }
 }
 
-struct StarRatingComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        StarRatingComponent(rating: .constant(4.33), maxRating: 5, bookId: 0);
-    }
-}
+//struct StarRatingComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StarRatingComponent(books: .constant([]), rating: 4.33, maxRating: 5, bookId: 0);
+//    }
+//}

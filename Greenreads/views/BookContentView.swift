@@ -34,7 +34,9 @@ struct BookContentViewInternals: View {
                 Spacer();
 
                 StarRatingComponent(
-                    rating: $rating,
+                    book: $book,
+                    books: .constant([]),
+                    rating: CGFloat(book?.rating ?? 0),
                     maxRating: 5,
                     bookId: 0
                 )

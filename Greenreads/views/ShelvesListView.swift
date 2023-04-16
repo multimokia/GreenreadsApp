@@ -60,6 +60,17 @@ struct ShelvesListView: View {
                                 Button(action: {
                                     Task {
                                         await deleteShelf(shelfId: shelfWithBook.id);
+                                        shelvesWithBooks = await getShelvesWithBooks();
+
+                                        if (searchquery == "") {
+                                            dispShelves = shelvesWithBooks;
+                                        }
+
+                                        else {
+                                            dispShelves = shelvesWithBooks.filter {
+                                                $0.name.lowercased().contains(searchquery.lowercased())
+                                            }
+                                        }
                                     }
                                 }) {
                                     Text("Delete shelf")
@@ -97,8 +108,18 @@ struct ShelvesListView: View {
                         .onSubmit {
                             isCreatingNewShelf = false;
                             Task {
-                                let newShelf = await createShelf(name: newShelfName);
-                                shelvesWithBooks.append(ShelfWithBooks(shelf: newShelf))
+                                await createShelf(name: newShelfName);
+                                shelvesWithBooks = await getShelvesWithBooks();
+
+                                if (searchquery == "") {
+                                    dispShelves = shelvesWithBooks;
+                                }
+
+                                else {
+                                    dispShelves = shelvesWithBooks.filter {
+                                        $0.name.lowercased().contains(searchquery.lowercased())
+                                    }
+                                }
                             }
                         }
                 }
